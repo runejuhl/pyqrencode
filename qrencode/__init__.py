@@ -21,7 +21,7 @@ hints = [QR_MODE_8, QR_MODE_KANJI]
 def encode(data, version=0, level=QR_ECLEVEL_L, hint=QR_MODE_8,
            case_sensitive=True):
     """Creates a QR-Code from string data.
-    
+
     Args:
       data: string: The data to encode in a QR-code. If a unicode string is
           supplied, it will be encoded in UTF-8.
@@ -47,8 +47,8 @@ def encode(data, version=0, level=QR_ECLEVEL_L, hint=QR_MODE_8,
         version, size, data = _encode(data, version, level, hint, True)
     else:
         version, size, data = _encode(data, version, level, hint, False)
-    
-    im = Image.fromstring('L', (size, size), data)
+
+    im = Image.frombytes('L', (size, size), data)
     return (version, size, im)
 
 def encode_scaled(data, size, version=0, level=QR_ECLEVEL_L, hint=QR_MODE_8,
@@ -78,5 +78,5 @@ def encode_scaled(data, size, version=0, level=QR_ECLEVEL_L, hint=QR_MODE_8,
     pad = (size - qr_size) / 2
     ret = Image.new("L", (size, size), 255)
     ret.paste(im, (pad, pad))
-    
+
     return (version, size, ret)
